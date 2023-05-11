@@ -110,11 +110,12 @@ def _split_file(f, skip=0):
         elif grib_edition == 2:
             part_size = int.from_bytes(indicator[8:16], "big")
         else:
-            raise ValueError(f"unknown grib edition: {grib_edition}")
+            logger.warning(f"unknown grib edition: {grib_edition} in file {f.name}")
+            part_size = 1
 
         data = f.read(part_size)
         if data[-4:] != b"7777":
-            logger.warning(f"part {part + 1} is broken")
+            logger.warning(f"part {part + 1} is broken in file {f.name}, start:{start}, part_size:{part_size}")
             f.seek(start + 1)
         else:
             yield start, part_size, grib_edition, data
