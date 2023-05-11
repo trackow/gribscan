@@ -220,13 +220,11 @@ def get_time_offset(gribmessage, lean_towards="end"):
     edition = int(gribmessage["editionNumber"])
     if edition == 1:
         timeRangeIndicator = int(gribmessage["timeRangeIndicator"])
-        if timeRangeIndicator == 0:
+        if timeRangeIndicator == 0 or timeRangeIndicator == 1:
             unit = time_range_units[
                 int(gribmessage.get("indicatorOfUnitOfTimeRange", 255))
             ]
             offset += int(gribmessage["P1"]) * unit
-        elif timeRangeIndicator == 1:
-            pass
         elif timeRangeIndicator == 10:
             unit = time_range_units[
                 int(gribmessage.get("indicatorOfUnitOfTimeRange", 255))
