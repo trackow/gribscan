@@ -455,7 +455,7 @@ def build_refs(messages, global_attrs, coords, varinfo, magician):
                 "chunks": chunks,
                 "compressor": {"id": "gribscan.rawgrib"},
                 "dtype": info["dtype"],
-                "fill_value": info["attrs"].get("missingValue", 9999),
+                "fill_value": 9999,
                 "filters": [],
                 "order": "C",
                 "zarr_format": 2,
